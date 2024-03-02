@@ -6,12 +6,15 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      mvc:
-        routes:
-          - id: catalogRoute
-            uri: lb://catalog-service/
-            predicates:
-              - Path=/api/v1/catalog/**
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: catalogRoute
+          uri: lb://catalog-service/
+          predicates:
+            - Path=/catalog/**
 
 eureka:
   client:
